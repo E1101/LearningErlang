@@ -42,9 +42,9 @@ report(Count) ->
 
 report(Count) ->
   NewCount = receive
-               X -> io:format("Received #~p: ~p~n",[Count,X]),
-                 Count + 1
-             end,
+     X -> io:format("Received #~p: ~p~n",[Count,X]),
+           Count + 1
+  end,
   report (NewCount).
 
 
