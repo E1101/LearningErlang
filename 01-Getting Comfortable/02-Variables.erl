@@ -2,6 +2,17 @@
 %% # Working with variables #
 %% # ###################### #
 
+% - The concept of call by reference does not exist.
+% - All variables are considered local to the function.
+% - Global variables do not exist.
+
+
+% ! variables in erlang are single assignment.
+% - bind the results in a fresh variable.
+Double = 2,
+NewDouble = Double * Double.
+
+
 % > variable names begin with a capital letter or an underscore.
 % > whereas underscores start “don’t care” variables.
 

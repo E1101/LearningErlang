@@ -1,9 +1,21 @@
 % Generally you will process a list in order,
 % from the first item (the head) to the last item
 
+% ! strings are a special kind of list.
+[$H, $e, $l, $l, $o]
+
 % elements can be of any type, including numbers, atoms, tuples, strings, ...
 [1,2,4,8,16,32]
 
+% list of tagged tuples
+[{person, 'Joe', 'Armstrong'}, {person, 'Robert', 'Virding'}, {person, 'Mike', 'Williams'}]
+
+[1,2,3] ++ [4,5,6]. % [1,2,3,4,5,6]
+[1,2,2,3,4,4] -- [2,4]. % [1,2,3,4]
+
+"A long string I have split "
+"across several lines.".
+% "A long string I have split across several lines."
 
 % > You can pattern match with lists just as you can with other Erlang data structures:
 [1,X,4,Y] = [1,2,4,8].

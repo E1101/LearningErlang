@@ -38,3 +38,10 @@ fall_velocity(earth, Distance) when Distance >= 0 -> math:sqrt(2 * 9.8 * Distanc
 fall_velocity(moon, Distance) when Distance >= 0 -> math:sqrt(2 * 1.6 * Distance);
 fall_velocity(mars, Distance) when Distance >= 0 -> math:sqrt(2 * 3.71 * Distance).
 
+
+% > tag convention used to represent different types of data
+% - have a meaning in the program that uses it.
+{person, 'Joe', 'Armstrong'}
+%% the atom person is the tag and might denote that
+%% the second field in the tuple is always the first
+%% name of the person, while the third is the surname.

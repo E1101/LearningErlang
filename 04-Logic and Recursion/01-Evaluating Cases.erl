@@ -2,6 +2,14 @@
 %% # Evaluating Cases #
 %% # ################ #
 
+case conditional-expression of
+  Pattern1 -> expression1, expression2, .. ;,
+  Pattern2 -> expression1, expression2, .. ;
+  ... ;
+  Patternn -> expression1, expression2, ..
+end
+
+
 % > Moving pattern matching inside the function
 -module('01-Evaluating Cases').
 -export([fall_velocity/2]).

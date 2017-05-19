@@ -2,6 +2,14 @@
 %% # If This, Then That #
 %% # ################## #
 
+if
+  Guard1 -> expression11, expression12, .. ;
+  Guard2 -> expression21, expression22, .. ;
+  ... ;
+  Guardn -> expressionn1, expressionn2, ..
+end
+
+
 % > Adding an if construct to convert numbers into atoms
 -module(drop).
 -export([fall_velocity/2]).

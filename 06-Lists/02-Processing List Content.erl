@@ -27,6 +27,8 @@ product([Head|Tail], Product) -> product(Tail, Product * Head).
 X=[1|[2,3]].   % [1,2,3]
 Y=[1,2 | [3]]. % [1,2,3]
 
+
+
 % > Calculating a series of drop velocities
 -module(listdrop).
 -export([falls/1]).
