@@ -1,3 +1,30 @@
+%% # ########################################### #
+%% # Functions and Pattern Matching over Records #
+%% # ########################################### #
+
+% > Suppose you want to define the birthday function, which increases the age of the person by one.
+birthday(P) ->
+  P#person{age = P#person.age + 1}.
+
+% ! But it is clearer to use pattern matching:
+birthday(#person{age=Age} = P) ->
+  P#person{age=Age+1}.
+
+% > It is also possible to match against field values so that you increase only Joe’s age,
+% - keeping everyone else the same age:
+joesBirthday(#person{age=Age,name="Joe"} = P) ->
+  P#person{age=Age+1};
+joesBirthday(P) -> P.
+
+
+% > Nested Records
+
+-record(name, {first, surname}).
+
+P = #person{name = #name{first = "Robert", surname = "Virding"}}
+First = (P#person.name)#name.first.
+
+
 % > A method that pattern matches a complete record
 -module(record_drop).
 -export([fall_velocity/1]).

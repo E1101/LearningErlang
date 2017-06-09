@@ -1,3 +1,14 @@
+-record(person, {name,age,phone}).
+#person{name="Joe", age=21, phone="999-999"}
+%% #person is the constructor for person records
+
+Person = #person{name="Fred"}.
+Person#person.name.
+Person#person.age.
+
+NewPerson = Person#person{age=37}
+
+
 %% defines a record type named planemo , containing fields named name , gravity , and
 %% distance_from_sun . Right now, when you create a new record, the fields will all have
 %% the value undefined.
