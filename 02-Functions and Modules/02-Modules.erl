@@ -14,6 +14,8 @@
 % arity /1 mean fall_velocity with one(1) argument.
 % Erlang considers functions with the same name but different arity to be different functions.
 -export([fall_velocity/1, mps_to_mph/1, mps_to_kph/1]).
+% help us keep track of which module version we have loaded in the runtime system at any point
+-vsn(1.0).
 
 % ! function names start with lowercase, not uppercase.
 % ! fun and end don’t appear.
@@ -56,4 +58,46 @@ height_to_mph(Meters) -> convert:mps_to_mph(drop:fall_velocity(Meters)).
 -import(convert, [mps_to_mph/1]).
 
 height_to_mph(Meters) -> mps_to_mph(fall_velocity(Meters)).
+
+
+
+%% # ########### #
+%% # Module Info #
+%% # ########### #
+
+
+-module(db).
+-export([new/0,write/3,read/2, delete/2,destroy/1]).
+-vsn(1.0).
+
+new() -> dict:new().
+write(Key, Data, Db) -> dict:store(Key, Data, Db).
+read(Key, Db) ->
+  case dict:fetch(Key, Db) of
+    error
+      -> {error, instance};
+    {ok, Data} -> {ok, Data}
+  end.
+delete(Key, Db) -> dict:erase(Key, Db).
+destroy(_Db) -> ok.
+
+% then:
+
+db:module_info().
+%% [{exports,[{new,0},
+%% {write,3},
+%% {read,2},
+%% {destroy,1},
+%% {delete,2},
+%% {module_info,0},
+%% {module_info,1}]},
+%% {imports,[]},
+%% {attributes,[{vsn,[1.0]}]},
+%% {compile,[{options,[{outdir,"/Users/Francesco/"}]},
+%% {version,"4.5.2"},
+%% {time,{2008,8,11,3,9,42}},
+%% {source,"/Users/Francesco/db.erl"}]}]
+
+db:module_info(attributes).
+%% [{vsn,[1.1]}]
 
