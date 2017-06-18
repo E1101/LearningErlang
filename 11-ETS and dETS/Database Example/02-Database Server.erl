@@ -1,5 +1,4 @@
-%%% File
-: usr.erl
+%%% File : usr.erl
 %%% Description : API and server code for cell user db
 -module(usr).
 -export([start/0, start/1, stop/0, init/2]).
