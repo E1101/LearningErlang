@@ -51,4 +51,12 @@ f(N).
 f(). % with no arguments clear all variables
 
 
+%% # ###################### #
+%% # Path To Existing Codes #
+%% # ###################### #
+
+erl –pa Dir % directive when starting Erlang
+code:add_path(Dir) % in shell
+
+
 
