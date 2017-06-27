@@ -32,3 +32,8 @@ gen_udp:close(Socket)
 
 gen_udp:send(Socket, Address, Port, Packet)
 
+
+% > When the socket is opened in passive mode
+gen_udp:recv(Socket, Length)
+gen_udp:recv(Socket, Length, Timeout)
+
