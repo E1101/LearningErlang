@@ -2,6 +2,31 @@
 %% you the ability to store, encapsulate, share, and manage
 %% your code more effectively.
 
+%% Modules are files with the extension .erl
+%% and must be compiled before they can be run.
+
+
+%% # ############### #
+%% # Compile Modules #
+%% # ############### #
+
+% -- hello.erl --------------------------
+-module(hello).
+-export([start/0]).
+
+start() ->
+  io:format("Hello world~n").
+
+$ erl
+1> c(hello).
+2> hello:start(). % Hello world
+
+% > Compiling Outside the Erlang Shell
+
+$ erlc hello.erl
+$ erl -noshell -s hello start -s init stop % the expression init:stop() , which terminates the Erlang session.
+% Hello world
+
 
 %% # ############## #
 %% # Define Modules #
