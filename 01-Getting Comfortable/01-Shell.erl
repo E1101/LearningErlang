@@ -1,3 +1,8 @@
+% > See list of commands.
+
+help().
+
+
 %% # ###################### #
 %% # How to exit from shell #
 %% # ###################### #
@@ -6,6 +11,8 @@
 % > Ctrl-C will bring you to a menu.
 % > calling a function q that itself calls the init:stop()
 q().
+erlang:halt(). % immediately stop the system
+
 
 %% # #################### #
 %% # Moving through Files #
@@ -23,11 +30,18 @@ cd("simonstl").
 27-14.
 35*42023943.
 200/15.
-200 div 15. % division for integers
-200 rem 15. % reminder (mod)
+
 3*(4+15).
 
 round(200/15).
+
+4/2. % 2.0
+
+200 div 15. % division for integers
+200 rem 15. % reminder (mod)
+5 div 3. % 1
+5 rem 3. % 2
+
 
 % calculations on integers using a base other than 10
 2#1010111. % = 87

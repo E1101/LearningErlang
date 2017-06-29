@@ -1,6 +1,13 @@
 % Generally you will process a list in order,
 % from the first item (the head) to the last item
 
+[E1,E2,..,En|T].
+ThingsToBuy = [{apples,10},{pears,6},{milk,3}].
+% [{apples,10},{pears,6},{milk,3}]
+ThingsToBuy1 = [{oranges,4},{newspaper,1}|ThingsToBuy].
+% [{oranges,4},{newspaper,1},{apples,10},{pears,6},{milk,3}]
+
+
 % ! strings are a special kind of list.
 [$H, $e, $l, $l, $o]
 

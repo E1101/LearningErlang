@@ -4,6 +4,14 @@ this_is_a_short_sentence.
 me@home.
 
 'Today is a goodday'.
+'Monday'
+'Tuesday'
+'+'
+'*'
+'an atom with spaces'
+
+'a' % means exactly as atom a
+
 
 % Atoms have a value—it’s the same as their text.
 hello %  hello
