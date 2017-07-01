@@ -21,6 +21,8 @@ erlang:halt(). % immediately stop the system
 pwd().
 cd("..").
 cd("simonstl").
+ls().
+
 
 %% # ##################### #
 %% # shell as a calculator #

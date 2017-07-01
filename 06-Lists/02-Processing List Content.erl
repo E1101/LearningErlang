@@ -90,4 +90,17 @@ Database = [ {francesco, harryPotter}, {simon, jamesBond},
 [ {X,Y} || X <- lists:seq(1,4), X rem 2 == 0, Y <- lists:seq(X,4), X+Y>4 ]. % [{2,3},{2,4},{4,4}]
 
 
+% > Pythagorean triplets are sets of integers {A,B,C} where A 2 + B 2 = C 2 .
+
+pythag(N) ->
+  [ {A,B,C} ||
+    A <- lists:seq(1,N),
+    B <- lists:seq(1,N),
+    C <- lists:seq(1,N),
+    A+B+C =< N,
+    A*A+B*B =:= C*C
+  ].
+
+lib_misc:pythag(16).
+% [{3,4,5},{4,3,5}]
 

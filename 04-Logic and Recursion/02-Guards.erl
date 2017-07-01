@@ -1,3 +1,23 @@
+% > Computes the max between X and Y
+
+max(X, Y) when X > Y -> X;
+max(X, Y) -> Y.
+
+
+% > Guards Sequences
+
+f(X,Y) when is_integer(X), X > Y, Y < 6 -> ... % sequence of and with ","
+%% When X is an integer, X is greater than Y , and Y is less than 6 .
+
+X =:= dog; X =:= cat % sequence of or with ";"
+%% X is either a cat or a dog
+
+is_integer(X), X > Y ; abs(Y) < 23
+% X is an integer and is greater than Y or the absolute value of Y is less than 23
+
+
+% >
+
 -module(examples).
 -export([even/1, number/1]).
 

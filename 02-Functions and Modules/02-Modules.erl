@@ -5,6 +5,19 @@
 %% Modules are files with the extension .erl
 %% and must be compiled before they can be run.
 
+% -- geometry.erl ---------------------------
+-module(geometry).
+-export([area/1]).
+
+% The clauses are separated by a
+% semicolon, and the final clause is terminated by dot whitespace.
+area({rectangle, Width, Height})
+  % function has no explicit return statement; the return value of the function is
+  % simply the value of the last expression in the body of the clause.
+  -> Width * Height;
+area({square, Side})
+  -> Side * Side.
+
 
 %% # ############### #
 %% # Compile Modules #
@@ -12,7 +25,7 @@
 
 % -- hello.erl --------------------------
 -module(hello).
--export([start/0]).
+-export([start/0]). % export start function with arity 0 that means no argument
 
 start() ->
   io:format("Hello world~n").
@@ -32,7 +45,21 @@ $ erl -noshell -s hello start -s init stop % the expression init:stop() , which 
 %% # Define Modules #
 %% # ############## #
 
+% -- shop1.erl -------------------------------------
+-module(shop1).
+-export([total/1]).
+
+total([{What, N}|T]) -> shop:cost(What) * N + total(T);
+total([]) -> 0.
+
+% then:
+
+Buy = [{oranges,4}, {newspaper,1}, {apples,10}, {pears,6}, {milk,3}].
+shop1:total(Buy).
+
+
 % > Module for calculating and converting fall velocities [drop.el]
+
 % ! module with name "drop" should declared in file names "drop.el"
 -module(drop).
 % which functions it should make visible to other code that uses this module.
