@@ -2,6 +2,8 @@
 #person{name="Joe", age=21, phone="999-999"}
 %% #person is the constructor for person records
 
+% ! Record declarations can be used only in Erlang source code modules and not in the shell.
+
 Person = #person{name="Fred"}.
 Person#person.name.
 Person#person.age.
@@ -41,3 +43,23 @@ H5. % 500
 
 Tower5a=Tower5#tower{height=512}.
 % #tower{location = "Valles Marineris",height = 512, planemo = mars,name = "Daga Vallis"}
+
+
+% --- records.hrl ----------------------------------------
+-record(todo, {status=reminder,who=joe,text}).
+
+% then:
+
+rr("records.hrl"). % shell function rr (short for read records).
+
+
+% > Extracting the Fields of a Record
+
+X1 = #todo{status=urgent, text="Fix errata in book"}.
+#todo{who=W, text=Txt} = X1.
+
+W.   % joe
+Txt. % "Fix errata in book"
+
+X2#todo.text. % % "Fix errata in book"
+
