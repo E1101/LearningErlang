@@ -1,3 +1,21 @@
+%
+% > We can explicitly generate an error by calling one of the following BIFs:
+
+
+% to terminate the current process.
+% If this exception is not caught, the signal {'EXIT',Pid,Why} will be broadcast to
+% all processes that are linked to the current process.
+exit(Why).
+
+% to throw an exception that a caller might want to catch.
+throw(Why).
+
+% for denoting “crashing errors.”
+% This is on par with internally generated errors.
+error(Why).
+
+
+% > Trapping an Exception with try...catch
 
 try Exprs of
   Pattern1 [when Guard1] ->
@@ -5,22 +23,53 @@ try Exprs of
   Pattern2 [when Guard2] ->
     ExpressionBody2
 catch
-  [Class1:]ExceptionPattern1
+  %% ExceptionType (one of throw , exit , or error )
+  %% ! defaults to throw.
+  [ExceptionType:]ExceptionPattern1 % ExceptionPattern1 = why
     [when ExceptionGuardSeq1] ->
       ExceptionBody1;
-  [ClassN:]ExceptionPatternN
+  [ExceptionType:]ExceptionPatternN
     [when ExceptionGuardSeqN] ->
       ExceptionBodyN
+after
+  AfterExpressions
+end
+
+
+% > try...catch Has a Value
+
+f(...) ->
+...
+X = try ... end,
+Y = g(X),
+...
+% when we need no value from try..catch
+f(...) ->
+...
+try ... end,
+...
+...
+
+
+try F
+catch
+  ...
+end
+
+
+try Expr
+catch
+  _:_ -> ... % Code to handle all exceptions
+  _ -> ... % Code to handle all exceptions
 end
 
 
 X=2.
-  try (X=3) of % badmatch error
-    Val -> {normal, Val}
-  catch
+try (X=3) of % badmatch error
+  Val -> {normal, Val}
+catch
     _:_ -> 43 % all error patterns in all classes
 end. % 43
-
 
 try (X=3) of
   Val -> {normal, Val}
@@ -36,49 +85,34 @@ catch
 end. % {throw,non_normal_return}
 
 
-% > Using try and catch to handle a possible error
--module(drop).
--export([fall_velocity/2]).
+% --- try_test.erl  --------------------------------
+generate_exception(1) -> a;
+generate_exception(2) -> throw(a);
+generate_exception(3) -> exit(a);
+generate_exception(4) -> {'EXIT', a};
+generate_exception(5) -> error(a).
 
-fall_velocity(Planemo, Distance) ->
-  Gravity = case Planemo of
-      earth -> 9.8;
-      moon -> 1.6;
-      mars -> 3.71
-  end,
-
-  try math:sqrt(2 * Gravity * Distance) of
-    Result -> Result
+demo1() ->
+  [catcher(I) || I <- [1,2,3,4,5]].
+catcher(N) ->
+  try generate_exception(N) of
+    Val -> {N, normal, Val}
   catch
-    error:Error -> {error, Error}
+    throw:X -> {N, caught, thrown, X};
+    exit:X -> {N, caught, exited, X};
+    error:X -> {N, caught, error, X}
   end.
-  %% OR leave out the of clause entirely
-  try math:sqrt(2 * Gravity * Distance)
-  catch
-    error:Error -> {error, Error}
-  end.
-% then:
-drop:fall_velocity(earth,-20). % {error,badarith}
+% --------------------------------------------------
+% > then:
+try_test:demo1().
+%% [{1,normal,a},
+%% {2,caught,thrown,a},
+%% {3,caught,exited,a},
+%% {4,normal,{'EXIT',a}},
+%% {5,caught,error,a}]
 
-%% You can have multiple statements in the try
-fall_velocity(Planemo, Distance) ->
-  try
-    Gravity = case Planemo of
-        earth -> 9.8;
-        moon -> 1.6;
-        mars -> 3.71
-    end,
-    math:sqrt(2 * Gravity * Distance)
-  of
-    Result -> Result
-  catch
-    %% If your patterns don’t match the error in
-    %% the catch clause, it gets reported as a runtime error
-    error:Error -> {error, Error}
-  end.
-% then:
-drop:fall_velocity(jupiter,20). % {error,{case_clause,jupiter}}
 
+% > Trapping an Exception with catch
 
 list_to_integer("one"). % ** exception error: bad argument
 
