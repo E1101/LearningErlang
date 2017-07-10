@@ -1,3 +1,8 @@
+% integers in a binary, each must be in the range 0 to 255 .
+<<5,10,20>>.
+<<"cat">>. % <<99,97,116>>
+
+
 Bin = <<E1, E2, ...,En>>
 % pattern-match them
 <<E1, E2, ...,En>> = Bin
