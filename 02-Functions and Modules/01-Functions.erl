@@ -55,6 +55,30 @@ sendTo(Pid) ->
   end.
 
 
+%% # ################ #
+%% # Pattern Matching #
+%% # ################ #
+
+func1([{tag1, A, B}|T]) ->
+  ...
+  ... f(..., {tag1, A, B}, ...)
+...
+
+% More efficient way is:
+
+func1([{tag1, A, B}=Z|T]) ->
+  ...
+  ... f(... Z, ...)
+...
+
+
+func1([{tag, {one, A}=Z1, B}=Z2|T]) ->
+  ..,.
+  ... f(..., Z2, ...),
+  ... g(..., Z1, ...),
+...
+
+
 %% # ##################################### #
 %% # Pattern Matching Records in Functions #
 %% # ##################################### #
@@ -71,4 +95,9 @@ clear_status(#todo{status=S, who=W} = R) ->
 do_something(X) when is_record(X, todo) ->
   %% ...
 .
+
+
+% > The BIF apply(Mod, Func, [Arg1, Arg2, ..., ArgN])
+
+apply(erlang, atom_to_list, [hello]). % hello
 

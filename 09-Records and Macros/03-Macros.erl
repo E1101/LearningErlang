@@ -61,6 +61,9 @@ macros1: test1(). % "length ( [ 1 , 2 , 3 ] )" = 3
 % To turn on system debugging, you need to set the debug flag. You can do this in the
 % shell using the following command:
 c(Module,[{d,debug}]).
+% or
+c(m1, {d, debug_flag}).
+
 
 
 %% # ######################## #

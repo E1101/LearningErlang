@@ -5,6 +5,50 @@
 %% Modules are files with the extension .erl
 %% and must be compiled before they can be run.
 
+
+%% # ################# #
+%% # Module Attributes #
+%% # ################# #
+
+% must be the first attribute in the file.
+% ! Conventionally the code for modname should
+%   be stored in a file called modname.erl .
+-module(modname).
+% Once a function has been imported from a module, then calling the
+% function can be achieved without specifying the module name.
+-import(Mod, [Name1/Arity1, Name2/Arity2,...]).
+% Only exported functions can be called from outside a module.
+-export([Name1/Arity1, Name2/Arity2, ...]).
+% Options is a single compiler option or a list of compiler options
+% ! The compiler option -compile(export_all). is often used
+% while debugging programs.
+-compile(Options).
+% Version is any literal term. The value of Version
+% has no particular syntax or meaning.
+-vsn(Version).
+
+% User-Defined Attributes; Can be extracted later!!
+-SomeTag(Value).
+
+
+-module(attrs).
+-vsn(1234).
+-author({joe,armstrong}).
+-purpose("example of attributes").
+-export([fac/1]).
+
+mymodule:module_info().
+%%[{exports,[{fac,1},{module_info,0},{module_info,1}]},
+%%{imports,[]},
+%%{attributes,[{vsn,[1234]},
+%%{author,[{joe,armstrong}]},
+%%{purpose,"example of attributes"}]}, <----- user-defined
+%%{compile,[{options,[]},
+%%{version,"4.8"}, <--- is the version of the compiler and should not be confused with the vsn tag
+%%{time,{2013,5,3,7,36,55}},
+%%{source,"/Users/joe/jaerlang2/code/attrs.erl"}]}]
+
+
 % -- geometry.erl ---------------------------
 -module(geometry).
 -export([area/1]).
