@@ -42,6 +42,27 @@ loop() ->
   end.
 
 
+% > Implementing a Timer
+-module(stimer).
+-export([start/2, cancel/1]).
+
+start(Time, Fun)
+  -> spawn(fun() -> timer(Time, Fun) end).
+cancel(Pid) -> Pid ! cancel.
+timer(Time, Fun) ->
+  receive
+    cancel ->
+      void
+  after Time ->
+    Fun()
+  end.
+
+% then:
+
+Pid1 = stimer:start(25000, fun() -> io:format("timer event~n") end).
+stimer:cancel(Pid1).
+
+
 %% # ############ #
 %% # Benchmarking #
 %% # ############ #

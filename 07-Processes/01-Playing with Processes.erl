@@ -63,3 +63,67 @@ receive X -> X end. % test1
 self() ! 23.
 receive Y->2*Y end. % 46
 
+
+% > Receive with Just a Timeout
+%% Using this, we can define a function sleep(T),
+%% which suspends the current process for T milliseconds.
+sleep(T) ->
+  receive
+  after T ->
+    true
+  end.
+
+
+%% # ################## #
+%% # Registered Process #
+%% # ################## #
+
+%% publishing a process identifier so that any process
+%% in the system can communicate with this process.
+
+% > BIFs for managing registered processes:
+
+register(AnAtom, Pid).
+%
+% Register the process Pid with the name AnAtom . The registration fails if
+% AnAtom has already been used to register a process.
+
+unregister(AnAtom).
+%
+% Remove any registrations associated with AnAtom .
+% Note: If a registered process dies, it will be automatically unregistered.
+
+whereis(AnAtom) -> Pid | undefined
+%
+% Find out whether AnAtom is registered.
+
+registered() -> [AnAtom::atom()]
+%
+% list of all registered processes in the system.
+
+Pid = spawn(area_server0, loop, []).
+register(area, Pid).
+area ! {rectangle, 4, 5}.
+
+-module(clock).
+-export([start/2, stop/0]).
+
+start(Time, Fun) ->
+  register(clock, spawn(fun() -> tick(Time, Fun) end)).
+
+stop() -> clock ! stop.
+
+tick(Time, Fun) ->
+  receive
+    stop ->
+      void
+  after Time ->
+    Fun(),
+    tick(Time, Fun)
+  end.
+
+% then
+% The clock will happily tick away until you stop it.
+clock:start(5000, fun() -> io:format("TICK ~p~n",[erlang:now()]) end).
+clock:stop().
+
