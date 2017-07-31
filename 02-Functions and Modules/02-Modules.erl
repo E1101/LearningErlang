@@ -197,3 +197,16 @@ db:module_info().
 db:module_info(attributes).
 %% [{vsn,[1.1]}]
 
+
+%% # ###################### #
+%% # locate the object code #
+%% # ###################### #
+
+code:which(?MODULE).
+
+code:which(file).
+% "/usr/local/lib/erlang/lib/kernel-2.16.1/ebin/file.beam"
+
+%% So The source can find here :
+%% /usr/local/lib/erlang/lib/kernel-2.16.1/src/file.erl
+
