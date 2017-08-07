@@ -37,3 +37,16 @@ gen_udp:send(Socket, Address, Port, Packet)
 gen_udp:recv(Socket, Length)
 gen_udp:recv(Socket, Length, Timeout)
 
+
+%% # ####################################### #
+%% # Finding Out Where Connections Come From #
+%% ######################################### #
+
+@spec inet:peername(Socket) -> {ok, {IP_Address, Port}} | {error, Why}
+%% IP address and port of the other end of the connection so the
+%% server can discover who initiated the connection.
+
+%% IP_Address is a tuple of integers,
+%% with {N1,N2,N3,N4} representing the IP address for IPv4 and {K1,K2,K3,K4,K5,K6,K7,K8}
+%% representing it for IPv6.
+
