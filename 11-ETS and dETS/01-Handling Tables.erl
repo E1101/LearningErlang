@@ -1,21 +1,23 @@
 
 % > Create Table
 
-ets:new(myTable, Opts) % returns the table identifier used to reference the table.
-
-%% when no options is passed, create a set, with the key in position 1,
-%% and providing protected access to the values of the table.
-
-%% ! Protected access allows all processes to read the table,
-%%   but only the owner to write to it.
+-spec ets:new(Name, [Opt]) -> TableId.
 
 %% Other options include:
 %% - set , ordered_set , bag , duplicate_bag
 %% - {keypos, Pos}
+
 %% - public , protected , private
+%%   protected access allows all processes to read the table,
+%%   but only the owner to write to it.
+%%   public table. Any process that knows the table identifier
+%%   can read and write this table.
 %% - named_table
-%% !  If the table is created with the named_table option set, you can access it using either the
-%% -  name or the table identifier.
+%%   If the table is created with the named_table option set, you can access it using either the
+%%   name or the table identifier.
+
+%% ! when no options is passed, is the same as opening it with
+%%  the options [set,protected,{keypos,1}] .
 
 
 TabId = ets:new(myTable, []).
