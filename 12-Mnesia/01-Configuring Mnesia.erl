@@ -1,12 +1,15 @@
-%% # ##################### #
-%% # Setting Up the Schema #
-%% # ##################### #
+%% # ############################# #
+%% # Creating the Initial Database #
+%% # ############################# #
+
+%%  Before we can do anything, we have to create an Mnesia database. You need
+%%  to do this only once.
 
 net_adm:ping(switch@Vaio). % pong
-
 nodes(). [switch@Vaio]
 % has to be executed on one of the connected nodes only
 % will propagate to the other nodes automatically.
+
 mnesia:create_schema([node()|nodes()]).
 ls().
 % Mnesia.om@Vaio Mnesia.switch@Vaio include
@@ -17,10 +20,12 @@ ls().
 % Mnesia.nonode@nohost . Just pass [node()] as an argument to the create_schema/1 call.
 mnesia:create_schema([node()]).
 
-
 % > override the location of the root directory
-erl -mnesia dir Dir
+%   Or we can point to a specific database when we start Erlang.
+$ erl -mnesia dir Dir
 
+$ erl -mnesia dir '"/home/joe/some/path/to/Mnesia.company"'
+mnesia:create_schema([node()]).
 
 % ! If you start Mnesia without a schema, a memory-only database will be created.
 
@@ -44,6 +49,8 @@ mnesia:stop() .
 %% # ############# #
 %% # Mnesia Tables #
 %% # ############# #
+
+% ! Note: The primary key of the shop table is the first column in the table.
 
 mnesia:create_table(Name, Options)
 
@@ -79,4 +86,24 @@ mnesia:create_table(usr, [{disc_copies, [node()]},
 % > For large persistent tables, or tables that were incorrectly closed and whose backup files need repair
 mnesia:wait_for_tables(TableList, TimeOut)
 % {timeout, TableList} ignore this and continue assuming table loaded.
+
+
+% --- test_mnesia.erl -------------------------------
+-record(shop, {item, quantity, cost}).
+-record(cost, {name, price}).
+
+
+%% we need to create a database schema, start the database,
+%% add some table definitions and stop the database, and
+%% restart it. We need to do this only once.
+
+do_this_once() ->
+  mnesia:create_schema([node()]),
+  mnesia:start(),
+  mnesia:create_table(shop,
+    [{attributes, record_info(fields, shop)}]),
+  mnesia:create_table(cost,
+    [{attributes, record_info(fields, cost)}]),
+  mnesia:create_table(design, [{attributes, record_info(fields, design)}]),
+  mnesia:stop().
 
