@@ -107,3 +107,14 @@ do_this_once() ->
   mnesia:create_table(design, [{attributes, record_info(fields, design)}]),
   mnesia:stop().
 
+
+%% # ################ #
+%% # The Table Viewer #
+%% # ################ #
+
+observer:start().
+
+%% click the Table Viewer tab. Now select View > Mnesia
+%% Tables in the control menu of the observer.
+
+
